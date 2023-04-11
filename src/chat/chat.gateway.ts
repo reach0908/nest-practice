@@ -16,7 +16,7 @@ import { RoomService } from 'src/room/room.service';
 
 import { AddMessageDto } from 'src/chat/dto/add-message.dto';
 import { JoinRoomDto } from 'src/chat/dto/join-room.dto';
-import { LeaverRoomDto } from 'src/chat/dto/leave-room.dto';
+import { LeaveRoomDto } from 'src/chat/dto/leave-room.dto';
 import { KickUserDto } from 'src/chat/dto/kick-user.dto';
 import { BanUserDto } from 'src/chat/dto/ban-user.dto';
 
@@ -96,7 +96,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 	}
 
 	@SubscribeMessage('leave')
-	async onRoomLeave(client: Socket, leaveRoomDto: LeaverRoomDto) {
+	async onRoomLeave(client: Socket, leaveRoomDto: LeaveRoomDto) {
 		const { roomId } = leaveRoomDto;
 		const userId = this.connectedUsers.get(client.id);
 

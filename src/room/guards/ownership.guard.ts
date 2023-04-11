@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 
 import { Observable } from 'rxjs';
 
-import { RequestWithUser } from './interfaces/request-with-user.interface';
+import { RequestWithUser } from 'src/room/interfaces/request-with-user.interface';
 
 import { RoomService } from '../room.service';
 
@@ -11,7 +11,7 @@ export class OwnershipGuard implements CanActivate {
 	constructor(private readonly roomService: RoomService) {}
 
 	canActivate(
-		context: ExecutionContext,
+		context: ExecutionContext
 	): boolean | Promise<boolean> | Observable<boolean> {
 		return new Promise(async (resolve) => {
 			try {
@@ -20,7 +20,9 @@ export class OwnershipGuard implements CanActivate {
 					.getRequest<RequestWithUser>();
 				const roomId = req.params.id;
 
-				const room = await this.roomService.findOne(roomId);
+				const room = await this.roomService.findOne(
+					roomId
+				);
 
 				if (room.ownerId === req.user.id) {
 					resolve(true);

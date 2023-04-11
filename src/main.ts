@@ -2,9 +2,9 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-import { AppModule } from './app.module';
-
 import * as cookieParser from 'cookie-parser';
+
+import { AppModule } from './app.module';
 
 import { AuthIoAdapter } from './chat/adapters/auth.adapter';
 

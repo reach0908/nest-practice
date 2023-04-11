@@ -25,14 +25,14 @@ export class AuthController {
 	@Post('/signUp')
 	async signUp(
 		@Body() userDto: CreateUserDto,
-		@Res({ passthrough: true }) res: Response,
+		@Res({ passthrough: true }) res: Response
 	) {
 		const tokens = await this.authService.signUp(userDto);
 
 		if (!tokens) {
 			throw new HttpException(
 				'User under this username already exists',
-				HttpStatus.BAD_REQUEST,
+				HttpStatus.BAD_REQUEST
 			);
 		}
 
@@ -48,7 +48,7 @@ export class AuthController {
 	@UseGuards(LocalAuthGuard)
 	async signIn(
 		@Body() userDto: LoginUserDto,
-		@Res({ passthrough: true }) res: Response,
+		@Res({ passthrough: true }) res: Response
 	) {
 		const tokens = await this.authService.signIn(userDto);
 
@@ -65,11 +65,14 @@ export class AuthController {
 		const { refreshToken } = req.cookies;
 
 		const accessToken = await this.authService.updateAccessTokens(
-			refreshToken,
+			refreshToken
 		);
 
 		if (!accessToken) {
-			throw new HttpException('UnAuthorized', HttpStatus.UNAUTHORIZED);
+			throw new HttpException(
+				'UnAuthorized',
+				HttpStatus.UNAUTHORIZED
+			);
 		}
 
 		return accessToken;

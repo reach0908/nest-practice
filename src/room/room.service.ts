@@ -15,11 +15,11 @@ import { BanUserDto } from 'src/chat/dto/ban-user.dto';
 @Injectable()
 export class RoomService {
 	constructor(
-		@injectRepository(Room)
+		@InjectRepository(Room)
 		private readonly roomRepository: Repository<Room>,
 		@InjectRepository(Message)
 		private readonly messageRepository: Repository<Message>,
-		private readonly userService: UserService,
+		private readonly userService: UserService
 	) {}
 
 	async findAll() {
@@ -31,35 +31,44 @@ export class RoomService {
 	}
 
 	async findOne(id: string) {
-		const room = await this.roomRepository.findOne(id);
+		const room = await this.roomRepository.findOneBy({ id });
 
 		if (!room) {
-			throw new NotFoundException(`Room with id ${id} not found`);
+			throw new NotFoundException(
+				`There is no room under id ${id}`
+			);
 		}
 
 		return room;
 	}
 
 	async findOneWithRelations(id: string) {
-		const room = await this.roomRepository.findOne(id, {
+		const room = await this.roomRepository.findOne({
+			where: { id },
 			relations: ['messages', 'users', 'bannedUsers'],
 		});
 
 		if (!room) {
-			throw new NotFoundException(`Room with id ${id} not found`);
+			throw new NotFoundException(
+				`Room with id ${id} not found`
+			);
 		}
 
 		return room;
 	}
 
 	async findOneByName(name: string) {
-		const room = await this.roomRepository.findOne({ name });
+		const room = await this.roomRepository.findOneBy({
+			name,
+		});
 
 		return room;
 	}
 
 	async create(createRoomDto: CreateRoomDto) {
-		const room = await this.roomRepository.create({ ...createRoomDto });
+		const room = await this.roomRepository.create({
+			...createRoomDto,
+		});
 
 		return this.roomRepository.save(room);
 	}
@@ -86,7 +95,9 @@ export class RoomService {
 		});
 
 		if (!room) {
-			throw new NotFoundException(`Room with id ${id} not found`);
+			throw new NotFoundException(
+				`Room with id ${id} not found`
+			);
 		}
 
 		return this.roomRepository.save(room);

@@ -40,7 +40,7 @@ export class AuthService {
 		return tokens;
 	}
 
-	async signin(userDto: LoginUserDto) {
+	async signIn(userDto: LoginUserDto) {
 		const user = await this.userService.findByUsername(userDto.username);
 
 		const tokens = await this.generateTokens(user.id);

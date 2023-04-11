@@ -16,7 +16,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UserService {
 	constructor(
 		@InjectRepository(User)
-		private readonly userRepository: Repository<User>,
+		private readonly userRepository: Repository<User>
 	) {}
 
 	async create(createUserDto: CreateUserDto) {
@@ -33,19 +33,22 @@ export class UserService {
 	}
 
 	async findOne(id: string) {
-		const user = await this.userRepository.findOne(id, {
+		const user = await this.userRepository.findOne({
+			where: { id },
 			relations: ['room'],
 		});
 
 		if (!user) {
-			throw new NotFoundException(`There is no user with id ${id}`);
+			throw new NotFoundException(
+				`There is no user with id ${id}`
+			);
 		}
 
 		return user;
 	}
 
 	async findByUsername(username: string) {
-		const user = await this.userRepository.findOne({ username });
+		const user = await this.userRepository.findOneBy({ username });
 
 		return user;
 	}
@@ -57,7 +60,9 @@ export class UserService {
 		});
 
 		if (!user) {
-			throw new NotFoundException(`There is no user with id ${id}`);
+			throw new NotFoundException(
+				`There is no user with id ${id}`
+			);
 		}
 
 		return this.userRepository.save(user);
@@ -70,15 +75,19 @@ export class UserService {
 		});
 
 		if (!user) {
-			throw new NotFoundException(`There is no user with id ${id}`);
+			throw new NotFoundException(
+				`There is no user with id ${id}`
+			);
 		}
 
 		const isBanned = user.bannedRooms?.find(
-			(bannedRoom) => bannedRoom.id === room?.id,
+			(bannedRoom) => bannedRoom.id === room?.id
 		);
 
 		if (isBanned) {
-			throw new ForbiddenException('You are banned from this room');
+			throw new ForbiddenException(
+				'You are banned from this room'
+			);
 		}
 
 		return this.userRepository.save(user);

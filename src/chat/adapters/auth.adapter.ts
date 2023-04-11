@@ -8,10 +8,10 @@ export class AuthIoAdapter extends IoAdapter {
 	private readonly authService: AuthService;
 	private readonly userService: UserService;
 
-	constructor(app: INestApplicationContext) {
+	constructor(private app: INestApplicationContext) {
 		super(app);
-		this.authService = app.get(AuthService);
-		this.userService = app.get(UserService);
+		this.authService = this.app.get(AuthService);
+		this.userService = this.app.get(UserService);
 	}
 
 	createIOServer(port: number, options?: any): any {
@@ -19,9 +19,13 @@ export class AuthIoAdapter extends IoAdapter {
 			const token = request._query?.token;
 
 			const isVerfied =
-				token && (await this.authService.verifyAccessToken(token));
+				token &&
+				(await this.authService.verifyAccessToken(
+					token
+				));
 			const userExists =
-				isVerfied && (await this.userService.findOne(isVerfied.id));
+				isVerfied &&
+				(await this.userService.findOne(isVerfied.id));
 
 			if (isVerfied && userExists) {
 				return allowFunction(null, true);

@@ -16,7 +16,7 @@ import { UpdateRoomDto } from './dto/update-room.dto';
 
 import { RoomService } from './room.service';
 
-import { JwtAuthGuard } from 'src/auth/guards/local-auth.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { OwnershipGuard } from './guards/ownership.guard';
 
 @Controller('room')
@@ -39,7 +39,7 @@ export class RoomController {
 	@Post()
 	async create(
 		@Req() req: RequestWithUser,
-		@Body() createRoomDto: CreateRoomDto,
+		@Body() createRoomDto: CreateRoomDto
 	) {
 		createRoomDto.ownerId = req.user.id;
 
@@ -51,7 +51,7 @@ export class RoomController {
 	async update(
 		@Param('id') id: string,
 		@Req() req: RequestWithUser,
-		@Body() updateRoomDto: UpdateRoomDto,
+		@Body() updateRoomDto: UpdateRoomDto
 	) {
 		return this.roomService.update(id, updateRoomDto);
 	}
