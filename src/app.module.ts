@@ -1,5 +1,6 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
 
 import { ChatModule } from './chat/chat.module';
 import { UserModule } from './user/user.module';
@@ -20,6 +21,7 @@ import { RoomModule } from './room/room.module';
 			autoLoadEntities: true,
 			synchronize: true,
 		}),
+		ScheduleModule.forRoot(),
 		ChatModule,
 		UserModule,
 		AuthModule,
