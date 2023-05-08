@@ -10,6 +10,7 @@ import {
 
 import { Room } from 'src/room/entities/room.entity';
 import { Message } from 'src/room/entities/message.entity';
+import { Sprint } from 'src/sprint/entities/sprint.entity';
 
 @Entity()
 export class User {
@@ -33,9 +34,15 @@ export class User {
 	room: Room;
 
 	@JoinTable()
-	@ManyToMany(() => Room, (room: Room) => room.bannedUsers, { eager: true })
+	@ManyToMany(() => Room, (room: Room) => room.bannedUsers, {
+		eager: true,
+	})
 	bannedRooms: Array<Room>;
 
 	@OneToMany(() => Message, (message: Message) => message.user)
 	messages: Array<Message>;
+
+	// 유저 입장에서 유저에게는 스프린트가 여러개 있음
+	@OneToMany(() => Sprint, (sprint: Sprint) => sprint.user)
+	sprint: Array<Sprint>;
 }
