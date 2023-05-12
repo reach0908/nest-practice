@@ -9,7 +9,7 @@ import { ManyToOne } from 'typeorm';
 
 import { User } from 'src/user/entities/user.entity';
 
-export class CreateSprintDto {
+export class CreateTaskDto {
 	@IsString()
 	readonly name: string;
 

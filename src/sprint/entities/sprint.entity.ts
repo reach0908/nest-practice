@@ -4,6 +4,8 @@ import {
 	Column,
 	ManyToOne,
 	OneToMany,
+	CreateDateColumn,
+	UpdateDateColumn,
 } from 'typeorm';
 
 import { User } from 'src/user/entities/user.entity';
@@ -16,8 +18,17 @@ export class Sprint {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 
-	@Column({ length: 20 })
-	sprintName: string;
+	@Column()
+	name: string;
+
+	@Column()
+	description: string;
+
+	@CreateDateColumn()
+	createdDate: Date;
+
+	@UpdateDateColumn()
+	updatedDate: Date;
 
 	@Column()
 	startDate: Date;
@@ -35,6 +46,8 @@ export class Sprint {
 	@ManyToOne(() => User, (user: User) => user.sprint)
 	user: User;
 
-	@OneToMany(() => Objective, (objective) => objective.sprint)
-	objective: Array<Objective>;
+	@OneToMany(() => Objective, (objective) => objective.sprint, {
+		cascade: true,
+	})
+	objectives: Array<Objective>;
 }

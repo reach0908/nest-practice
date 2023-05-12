@@ -1,26 +1,33 @@
 import {
-	IsBoolean,
+	IsOptional,
 	IsString,
 	IsDate,
 	IsNotEmpty,
 	IsNumber,
 } from 'class-validator';
-import { ManyToOne } from 'typeorm';
 
-import { User } from 'src/user/entities/user.entity';
+import { Sprint } from '../entities/sprint.entity';
 
 export class CreateSprintDto {
 	@IsString()
-	readonly sprintName: string;
+	readonly name: Sprint['name'];
+
+	@IsString()
+	@IsOptional()
+	readonly description?: Sprint['description'];
 
 	@IsNotEmpty()
 	@IsDate()
-	readonly startDate: string;
+	readonly startDate: Sprint['startDate'];
 
 	@IsNotEmpty()
 	@IsDate()
-	readonly endDate: string;
+	readonly endDate: Sprint['endDate'];
 
 	@IsNumber()
-	readonly sprintNumber: number;
+	readonly sprintNumber: Sprint['sprintNumber'];
+
+	@IsOptional()
+	@IsString()
+	user?: Sprint['user'];
 }
