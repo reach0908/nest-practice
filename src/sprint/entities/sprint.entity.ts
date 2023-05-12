@@ -1,6 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	ManyToOne,
+	OneToMany,
+} from 'typeorm';
 
 import { User } from 'src/user/entities/user.entity';
+import { Objective } from 'src/objective/entities/objective.entity';
 
 // 데이터 테이블에 매핑되는 클래스
 // 아래 데코레이터를 통해 적용해서 생성할 수 있음
@@ -27,4 +34,7 @@ export class Sprint {
 	// 스프린트의 입장에서 하나에 여러개가 연결됨
 	@ManyToOne(() => User, (user: User) => user.sprint)
 	user: User;
+
+	@OneToMany(() => Objective, (objective) => objective.sprint)
+	objective: Array<Objective>;
 }
