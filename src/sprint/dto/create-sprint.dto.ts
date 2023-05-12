@@ -5,6 +5,9 @@ import {
 	IsNotEmpty,
 	IsNumber,
 } from 'class-validator';
+import { ManyToOne } from 'typeorm';
+
+import { User } from 'src/user/entities/user.entity';
 
 export class CreateSprintDto {
 	@IsString()
