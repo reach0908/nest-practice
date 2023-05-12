@@ -12,6 +12,7 @@ import { Room } from 'src/room/entities/room.entity';
 import { Message } from 'src/room/entities/message.entity';
 import { Sprint } from 'src/sprint/entities/sprint.entity';
 import { Objective } from 'src/objective/entities/objective.entity';
+import { Task } from 'src/task/entities/task.entity';
 
 @Entity()
 export class User {
@@ -49,4 +50,7 @@ export class User {
 
 	@OneToMany(() => Objective, (objective: Objective) => objective.user)
 	objective: Array<Objective>;
+
+	@OneToMany(() => Task, (task: Task) => task.user)
+	task: Array<Task>;
 }
