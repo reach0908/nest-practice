@@ -40,5 +40,5 @@ export class Task {
 	status: string;
 
 	@OneToMany(() => Objective, (objective: Objective) => objective.task)
-	objectives: Objective;
+	objective: Objective;
 }

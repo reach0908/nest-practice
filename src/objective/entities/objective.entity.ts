@@ -35,6 +35,6 @@ export class Objective {
 	@ManyToOne(() => Sprint, (sprint: Sprint) => sprint.objectives)
 	sprint: Sprint;
 
-	@OneToMany(() => Task, (task: Task) => task.objectives)
+	@OneToMany(() => Task, (task: Task) => task.objective)
 	task: Array<Task>;
 }

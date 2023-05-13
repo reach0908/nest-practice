@@ -28,6 +28,5 @@ export class CreateSprintDto {
 	readonly sprintNumber: Sprint['sprintNumber'];
 
 	@IsOptional()
-	@IsString()
 	user?: Sprint['user'];
 }
