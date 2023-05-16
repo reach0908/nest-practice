@@ -24,7 +24,7 @@ export class ObjectiveController {
 	@UseGuards(JwtAuthGuard)
 	@Get(':id')
 	async findOne(@Param('id') id: Objective['id']) {
-		return this.objectiveService.findOne(id);
+		return this.objectiveService.getObjective(id);
 	}
 
 	@UseGuards(JwtAuthGuard)

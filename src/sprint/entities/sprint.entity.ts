@@ -6,10 +6,12 @@ import {
 	OneToMany,
 	CreateDateColumn,
 	UpdateDateColumn,
+	OneToOne,
 } from 'typeorm';
 
 import { User } from 'src/user/entities/user.entity';
 import { Objective } from 'src/objective/entities/objective.entity';
+import { Retrospective } from 'src/retrospective/entities/retrospective.entity';
 
 // 데이터 테이블에 매핑되는 클래스
 // 아래 데코레이터를 통해 적용해서 생성할 수 있음
@@ -50,4 +52,10 @@ export class Sprint {
 		cascade: true,
 	})
 	objectives: Array<Objective>;
+
+	@OneToOne(
+		() => Retrospective,
+		(retrospective: Retrospective) => retrospective.sprint
+	)
+	retrospective: Retrospective;
 }

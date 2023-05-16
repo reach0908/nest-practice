@@ -5,6 +5,7 @@ import {
 	ManyToOne,
 	JoinTable,
 	OneToMany,
+	OneToOne,
 	ManyToMany,
 } from 'typeorm';
 
@@ -13,6 +14,7 @@ import { Message } from 'src/room/entities/message.entity';
 import { Sprint } from 'src/sprint/entities/sprint.entity';
 import { Objective } from 'src/objective/entities/objective.entity';
 import { Task } from 'src/task/entities/task.entity';
+import { SprintSetting } from 'src/sprintSetting/entities/sprintSetting.entity';
 
 @Entity()
 export class User {
@@ -53,4 +55,10 @@ export class User {
 
 	@OneToMany(() => Task, (task: Task) => task.user)
 	task: Array<Task>;
+
+	@OneToOne(
+		() => SprintSetting,
+		(setting: SprintSetting) => SprintSetting.user
+	)
+	sprintSetting: SprintSetting;
 }
