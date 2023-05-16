@@ -1,37 +1,31 @@
-import { INestApplicationContext } from '@nestjs/common';
-import { IoAdapter } from '@nestjs/platform-socket.io';
+import { INestApplicationContext } from '@nestjs/common'
+import { IoAdapter } from '@nestjs/platform-socket.io'
 
-import { AuthService } from 'src/auth/auth.service';
-import { UserService } from 'src/user/user.service';
+import { AuthService } from 'src/auth/auth.service'
+import { UserService } from 'src/user/user.service'
 
 export class AuthIoAdapter extends IoAdapter {
-	private readonly authService: AuthService;
-	private readonly userService: UserService;
+    private readonly authService: AuthService
+    private readonly userService: UserService
 
-	constructor(private app: INestApplicationContext) {
-		super(app);
-		this.authService = this.app.get(AuthService);
-		this.userService = this.app.get(UserService);
-	}
+    constructor(private app: INestApplicationContext) {
+        super(app)
+        this.authService = this.app.get(AuthService)
+        this.userService = this.app.get(UserService)
+    }
 
-	createIOServer(port: number, options?: any): any {
-		options.allowRequest = async (request, allowFunction) => {
-			const token = request._query?.token;
+    createIOServer(port: number, options?: any): any {
+        options.allowRequest = async (request, allowFunction) => {
+            const token = request._query?.token
 
-			const isVerfied =
-				token &&
-				(await this.authService.verifyAccessToken(
-					token
-				));
-			const userExists =
-				isVerfied &&
-				(await this.userService.findOne(isVerfied.id));
+            const isVerfied = token && (await this.authService.verifyAccessToken(token))
+            const userExists = isVerfied && (await this.userService.findOne(isVerfied.id))
 
-			if (isVerfied && userExists) {
-				return allowFunction(null, true);
-			}
+            if (isVerfied && userExists) {
+                return allowFunction(null, true)
+            }
 
-			return allowFunction('Unauthorized', false);
-		};
-	}
+            return allowFunction('Unauthorized', false)
+        }
+    }
 }

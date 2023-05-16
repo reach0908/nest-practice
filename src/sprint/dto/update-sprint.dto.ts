@@ -1,35 +1,29 @@
-import {
-	IsBoolean,
-	IsDate,
-	IsNumber,
-	IsOptional,
-	IsString,
-} from 'class-validator';
+import { IsBoolean, IsDate, IsNumber, IsOptional, IsString } from 'class-validator'
 
-import { Sprint } from '../entities/sprint.entity';
+import { Sprint } from '../entities/sprint.entity'
 
 export class UpdateSprintDto {
-	@IsString()
-	@IsOptional()
-	readonly name?: Sprint['name'];
+    @IsString()
+    @IsOptional()
+    readonly name?: Sprint['name']
 
-	@IsString()
-	@IsOptional()
-	readonly description?: Sprint['description'];
+    @IsString()
+    @IsOptional()
+    readonly description?: Sprint['description']
 
-	@IsBoolean()
-	@IsOptional()
-	readonly active?: Sprint['active'];
+    @IsBoolean()
+    @IsOptional()
+    readonly active?: Sprint['active']
 
-	@IsNumber()
-	@IsOptional()
-	readonly sprintNumber?: Sprint['sprintNumber'];
+    @IsNumber()
+    @IsOptional()
+    readonly sprintNumber?: Sprint['sprintNumber']
 
-	@IsDate()
-	@IsOptional()
-	readonly startDate?: Sprint['startDate'];
+    @IsDate()
+    @IsOptional()
+    readonly startDate?: Sprint['startDate']
 
-	@IsDate()
-	@IsOptional()
-	readonly endDate?: Sprint['endDate'];
+    @IsDate()
+    @IsOptional()
+    readonly endDate?: Sprint['endDate']
 }

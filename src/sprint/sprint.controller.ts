@@ -1,64 +1,47 @@
-import {
-	Body,
-	Controller,
-	Delete,
-	Get,
-	Param,
-	Patch,
-	Post,
-	Req,
-	UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common'
 
-import { SprintService } from './sprint.service';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { SprintService } from './sprint.service'
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 
-import { Sprint } from './entities/sprint.entity';
-import { RequestWithUser } from 'src/room/interfaces/request-with-user.interface';
-import { OwnershipGuard } from './guards/ownership.guard';
-import { CreateSprintDto } from './dto/create-sprint.dto';
-import { UpdateSprintDto } from './dto/update-sprint.dto';
+import { Sprint } from './entities/sprint.entity'
+import { RequestWithUser } from 'src/room/interfaces/request-with-user.interface'
+import { OwnershipGuard } from './guards/ownership.guard'
+import { CreateSprintDto } from './dto/create-sprint.dto'
+import { UpdateSprintDto } from './dto/update-sprint.dto'
 
 @Controller('sprint')
 export class SprintController {
-	constructor(private readonly sprintService: SprintService) {}
+    constructor(private readonly sprintService: SprintService) {}
 
-	@UseGuards(JwtAuthGuard)
-	@Get(':id')
-	async findOne(@Param('id') id: Sprint['id']) {
-		return this.sprintService.findOne(id);
-	}
+    @UseGuards(JwtAuthGuard)
+    @Get(':id')
+    async findOne(@Param('id') id: Sprint['id']) {
+        return this.sprintService.findOne(id)
+    }
 
-	@UseGuards(JwtAuthGuard)
-	@Get()
-	async findAll() {
-		return this.sprintService.findAll();
-	}
+    @UseGuards(JwtAuthGuard)
+    @Get()
+    async findAll() {
+        return this.sprintService.findAll()
+    }
 
-	@UseGuards(JwtAuthGuard)
-	@Post()
-	async create(
-		@Req() req: RequestWithUser,
-		@Body() createSrpintDto: CreateSprintDto
-	) {
-		createSrpintDto.user = req.user;
+    @UseGuards(JwtAuthGuard)
+    @Post()
+    async create(@Req() req: RequestWithUser, @Body() createSrpintDto: CreateSprintDto) {
+        createSrpintDto.user = req.user
 
-		return this.sprintService.create(createSrpintDto);
-	}
+        return this.sprintService.create(createSrpintDto)
+    }
 
-	@UseGuards(JwtAuthGuard, OwnershipGuard)
-	@Patch(':id')
-	async update(
-		@Param('id') id: string,
-		@Req() req: RequestWithUser,
-		@Body() updateSprintDto: UpdateSprintDto
-	) {
-		return this.sprintService.update(id, updateSprintDto);
-	}
+    @UseGuards(JwtAuthGuard, OwnershipGuard)
+    @Patch(':id')
+    async update(@Param('id') id: string, @Req() req: RequestWithUser, @Body() updateSprintDto: UpdateSprintDto) {
+        return this.sprintService.update(id, updateSprintDto)
+    }
 
-	@UseGuards(JwtAuthGuard, OwnershipGuard)
-	@Delete(':id')
-	async remove(@Param('id') id: string) {
-		return this.sprintService.remove(id);
-	}
+    @UseGuards(JwtAuthGuard, OwnershipGuard)
+    @Delete(':id')
+    async remove(@Param('id') id: string) {
+        return this.sprintService.remove(id)
+    }
 }

@@ -1,14 +1,14 @@
-import { IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsOptional, IsString, IsUUID } from 'class-validator'
 
 export class AddMessageDto {
-	@IsString()
-	text: string;
+    @IsString()
+    text: string
 
-	@IsOptional()
-	@IsUUID()
-	roomId?: string;
+    @IsOptional()
+    @IsUUID()
+    roomId?: string
 
-	@IsOptional()
-	@IsUUID()
-	userId?: string;
+    @IsOptional()
+    @IsUUID()
+    userId?: string
 }

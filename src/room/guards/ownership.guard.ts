@@ -1,35 +1,29 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
 
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs'
 
-import { RequestWithUser } from 'src/room/interfaces/request-with-user.interface';
+import { RequestWithUser } from 'src/room/interfaces/request-with-user.interface'
 
-import { RoomService } from '../room.service';
+import { RoomService } from '../room.service'
 
 @Injectable()
 export class OwnershipGuard implements CanActivate {
-	constructor(private readonly roomService: RoomService) {}
+    constructor(private readonly roomService: RoomService) {}
 
-	canActivate(
-		context: ExecutionContext
-	): boolean | Promise<boolean> | Observable<boolean> {
-		return new Promise(async (resolve) => {
-			try {
-				const req = context
-					.switchToHttp()
-					.getRequest<RequestWithUser>();
-				const roomId = req.params.id;
+    canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+        return new Promise(async resolve => {
+            try {
+                const req = context.switchToHttp().getRequest<RequestWithUser>()
+                const roomId = req.params.id
 
-				const room = await this.roomService.findOne(
-					roomId
-				);
+                const room = await this.roomService.findOne(roomId)
 
-				if (room.ownerId === req.user.id) {
-					resolve(true);
-				}
+                if (room.ownerId === req.user.id) {
+                    resolve(true)
+                }
 
-				resolve(false);
-			} catch (err) {}
-		});
-	}
+                resolve(false)
+            } catch (err) {}
+        })
+    }
 }

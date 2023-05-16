@@ -1,16 +1,16 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator'
 
 export class CreateRoomDto {
-	@IsString()
-	readonly name: string;
+    @IsString()
+    readonly name: string
 
-	@IsString()
-	readonly description: string;
+    @IsString()
+    readonly description: string
 
-	@IsString()
-	readonly avatar: string;
+    @IsString()
+    readonly avatar: string
 
-	@IsOptional()
-	@IsString()
-	ownerId?: string;
+    @IsOptional()
+    @IsString()
+    ownerId?: string
 }

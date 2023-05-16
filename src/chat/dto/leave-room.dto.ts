@@ -1,3 +1,3 @@
-import { JoinRoomDto } from './join-room.dto';
+import { JoinRoomDto } from './join-room.dto'
 
 export class LeaveRoomDto extends JoinRoomDto {}

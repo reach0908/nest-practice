@@ -1,21 +1,26 @@
-import { Sprint } from 'src/sprint/entities/sprint.entity';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { RetrospectiveQuestion } from 'src/retrospectiveQuestion/entities/retrospectiveQuestion.entity'
+import { Sprint } from 'src/sprint/entities/sprint.entity'
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+interface QuestionWithAnswer extends RetrospectiveQuestion {
+    answer: string
+}
 
 @Entity()
 export class Retrospective {
-	@PrimaryGeneratedColumn('uuid')
-	id: string;
+    @PrimaryGeneratedColumn('uuid')
+    id: string
 
-	@Column()
-	score: number;
+    @Column()
+    score: number
 
-	@Column()
-	description: string;
+    // 이번 스프린트의 소감
+    @Column()
+    description: string
 
-	// TODO: sprintSetting의 질문리스트 연결하기
-	@Column()
-	questionAnswers: Array<Object>;
+    // TODO: sprintSetting의 질문리스트 연결하기
+    @Column()
+    answers: Array<QuestionWithAnswer>
 
-	@OneToOne(() => Sprint, (sprint: Sprint) => sprint.retrospective)
-	sprint: Sprint;
+    @OneToOne(() => Sprint, (sprint: Sprint) => sprint.retrospective)
+    sprint: Sprint
 }
