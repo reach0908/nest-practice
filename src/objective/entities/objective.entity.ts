@@ -23,6 +23,7 @@ export class Objective {
     @Column()
     description: string
 
+    @Column()
     @CreateDateColumn()
     createdDate: Date
 
