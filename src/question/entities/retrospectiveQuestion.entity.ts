@@ -1,4 +1,4 @@
-import { RetrospectiveAnswer } from 'src/retrospectiveAnswer/entity/retrospectiveAnswer.entity'
+import { RetrospectiveAnswer } from 'src/answer/entity/retrospectiveAnswer.entity'
 import { SprintSetting } from 'src/sprintSetting/entities/sprintSetting.entity'
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 

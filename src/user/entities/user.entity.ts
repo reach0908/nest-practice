@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinTable, OneToMany
 import { Room } from 'src/room/entities/room.entity'
 import { Message } from 'src/room/entities/message.entity'
 import { Sprint } from 'src/sprint/entities/sprint.entity'
-import { Objective } from 'src/objective/entities/objective.entity'
+import { Objective } from 'src/goal/entities/objective.entity'
 import { Task } from 'src/task/entities/task.entity'
 import { SprintSetting } from 'src/sprintSetting/entities/sprintSetting.entity'
 

@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, OneToOne } from 'typeorm'
 
 import { Retrospective } from 'src/retrospective/entities/retrospective.entity'
-import { RetrospectiveQuestion } from 'src/retrospectiveQuestion/entities/retrospectiveQuestion.entity'
+import { RetrospectiveQuestion } from 'src/question/entities/retrospectiveQuestion.entity'
 
 @Entity()
 export class RetrospectiveAnswer {

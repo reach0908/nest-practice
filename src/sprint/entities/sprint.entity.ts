@@ -10,7 +10,7 @@ import {
 } from 'typeorm'
 
 import { User } from 'src/user/entities/user.entity'
-import { Objective } from 'src/objective/entities/objective.entity'
+import { Objective } from 'src/goal/entities/objective.entity'
 import { Retrospective } from 'src/retrospective/entities/retrospective.entity'
 
 // 데이터 테이블에 매핑되는 클래스
