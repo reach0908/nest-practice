@@ -3,7 +3,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } fro
 import { ObjectiveService } from './objective.service'
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 
-import { Objective } from './entities/objective.entity'
+import { Objective } from './entities/goal.entity'
 import { RequestWithUser } from 'src/room/interfaces/request-with-user.interface'
 import { CreateTaskDto } from 'src/task/dto/create-task.dto'
 

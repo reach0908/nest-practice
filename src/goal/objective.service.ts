@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { Objective } from './entities/objective.entity'
+import { Objective } from './entities/goal.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Sprint } from 'src/sprint/entities/sprint.entity'

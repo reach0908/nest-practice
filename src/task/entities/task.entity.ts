@@ -9,7 +9,7 @@ import {
 } from 'typeorm'
 
 import { User } from 'src/user/entities/user.entity'
-import { Objective } from 'src/goal/entities/objective.entity'
+import { Objective } from 'src/goal/entities/goal.entity'
 
 // 데이터 테이블에 매핑되는 클래스
 // 아래 데코레이터를 통해 적용해서 생성할 수 있음
