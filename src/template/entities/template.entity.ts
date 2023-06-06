@@ -3,7 +3,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { Question } from 'src/question/entities/question.entity'
 import { Answer } from 'src/answer/entity/answer'
 
-@Entity()
+@Entity('template')
 export class Template {
     @PrimaryGeneratedColumn()
     id: number

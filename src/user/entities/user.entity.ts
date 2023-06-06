@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { Sprint } from 'src/sprint/entities/sprint.entity'
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
 
 @Entity()
 export class User {
@@ -16,4 +17,7 @@ export class User {
 
     @Column()
     is_admin: boolean
+
+    @OneToMany(() => Sprint, sprint => sprint.user)
+    sprints: Array<Sprint>
 }

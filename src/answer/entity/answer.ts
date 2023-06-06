@@ -3,7 +3,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Template } from 'src/template/entities/template.entity'
 import { Sprint } from 'src/sprint/entities/sprint.entity'
 
-@Entity()
+@Entity('answer')
 export class Answer {
     @PrimaryGeneratedColumn()
     id: number
