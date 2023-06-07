@@ -3,7 +3,7 @@ import { Objective } from './entities/goalLog.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Sprint } from 'src/sprint/entities/sprint.entity'
-import { CreateObjectiveDto } from 'src/goal/dto/create-objective.dto'
+import { CreateObjectiveDto } from 'src/goal/dto/create-goal.dto'
 
 @Injectable()
 export class ObjectiveService {

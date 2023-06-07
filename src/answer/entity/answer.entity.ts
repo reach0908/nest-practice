@@ -17,9 +17,6 @@ export class Answer {
     @Column({ type: 'date' })
     date: Date
 
-    @ManyToOne(() => Template, template => template.answers)
-    template: Template
-
     @ManyToOne(() => Sprint, sprint => sprint.answers)
     sprint: Sprint
 }

@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 import { Question } from 'src/question/entities/question.entity'
-import { Answer } from 'src/answer/entity/answer'
+import { Answer } from 'src/answer/entity/answer.entity'
 
 @Entity('template')
 export class Template {

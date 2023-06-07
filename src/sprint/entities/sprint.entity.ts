@@ -8,7 +8,7 @@ import {
     ManyToOne
 } from 'typeorm'
 
-import { Answer } from 'src/answer/entity/answer'
+import { Answer } from 'src/answer/entity/answer.entity'
 import { Goal } from 'src/goal/entities/goal.entity'
 import { User } from 'src/user/entities/user.entity'
 
