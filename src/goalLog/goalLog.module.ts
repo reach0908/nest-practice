@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { Objective } from './entities/goalLog.entity'
+import { GoalLog } from './entities/goalLog.entity'
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Objective])],
+    imports: [TypeOrmModule.forFeature([GoalLog])],
     providers: [],
     exports: []
 })
-export class ObjectiveModule {}
+export class GoalLogModule {}
