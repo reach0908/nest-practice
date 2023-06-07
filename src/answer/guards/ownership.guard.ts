@@ -2,9 +2,9 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
 
 import { Observable } from 'rxjs'
 
-import { RequestWithUser } from 'src/user/interfaces/reqeust-with-user.interface'
+import { RequestWithUser } from 'src/room/interfaces/request-with-user.interface'
 
-import { SprintService } from '../sprint.service'
+import { AnswerService } from '../answer.service'
 
 @Injectable()
 export class OwnershipGuard implements CanActivate {

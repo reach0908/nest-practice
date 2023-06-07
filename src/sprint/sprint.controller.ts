@@ -4,11 +4,11 @@ import { SprintService } from './sprint.service'
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 
 import { Sprint } from './entities/sprint.entity'
-import { RequestWithUser } from 'src/room/interfaces/request-with-user.interface'
 import { OwnershipGuard } from './guards/ownership.guard'
 import { CreateSprintDto } from './dto/create-sprint.dto'
 import { UpdateSprintDto } from './dto/update-sprint.dto'
 
+import { RequestWithUser } from 'src/user/interfaces/reqeust-with-user.interface'
 @Controller('sprint')
 export class SprintController {
     constructor(private readonly sprintService: SprintService) {}
