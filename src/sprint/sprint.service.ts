@@ -46,7 +46,7 @@ export class SprintService {
             ...updateSprintDto
         })
 
-        if (sprint) {
+        if (!sprint) {
             throw new NotFoundException(`Sprint with id ${id} not found`)
         }
 
