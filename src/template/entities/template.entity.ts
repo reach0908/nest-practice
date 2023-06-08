@@ -1,7 +1,8 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
 
 import { Question } from 'src/question/entities/question.entity'
 import { Answer } from 'src/answer/entity/answer.entity'
+import { User } from 'src/user/entities/user.entity'
 
 @Entity('template')
 export class Template {
@@ -22,4 +23,7 @@ export class Template {
 
     @OneToMany(() => Answer, answer => answer.template)
     answers: Array<Answer>
+
+    @ManyToOne(() => User, user => user.templates)
+    user: User
 }
