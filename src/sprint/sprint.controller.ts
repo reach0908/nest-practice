@@ -35,13 +35,13 @@ export class SprintController {
 
     @UseGuards(JwtAuthGuard, OwnershipGuard)
     @Patch(':id')
-    async update(@Param('id') id: string, @Req() req: RequestWithUser, @Body() updateSprintDto: UpdateSprintDto) {
+    async update(@Param('id') id: Sprint['id'], @Body() updateSprintDto: UpdateSprintDto) {
         return this.sprintService.update(id, updateSprintDto)
     }
 
     @UseGuards(JwtAuthGuard, OwnershipGuard)
     @Delete(':id')
-    async remove(@Param('id') id: string) {
+    async remove(@Param('id') id: Sprint['id']) {
         return this.sprintService.remove(id)
     }
 }

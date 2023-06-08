@@ -4,6 +4,8 @@ import { OwnershipGuard } from 'src/sprint/guards/ownership.guard'
 
 import { RequestWithUser } from 'src/user/interfaces/reqeust-with-user.interface'
 
+import { AnswerService } from './answer.service'
+
 @Controller('anwer')
 export class AnswerController {
     constructor(private readonly answerService: AnswerService) {}
