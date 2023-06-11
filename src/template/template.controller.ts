@@ -14,7 +14,7 @@ export class TemplateController {
     @Get()
     async findAllByUser(req: RequestWithUser) {
         const { user } = req
-        return this.templateService.findAllBy(user)
+        return this.templateService.findAllByUser(user)
     }
 
     @UseGuards(JwtAuthGuard)
