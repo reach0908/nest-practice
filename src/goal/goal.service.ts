@@ -1,63 +1,62 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { Objective } from './entities/goal.entity'
+import { Goal } from './entities/goal.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Sprint } from 'src/sprint/entities/sprint.entity'
-import { CreateObjectiveDto } from 'src/goal/dto/create-goal.dto'
 
 @Injectable()
-export class ObjectiveService {
+export class GoalService {
     constructor(
-        @InjectRepository(Objective)
-        private readonly objectiveRepository: Repository<Objective>,
+        @InjectRepository(Goal)
+        private readonly goalRepository: Repository<Goal>,
         @InjectRepository(Sprint)
         private readonly sprintRepository: Repository<Sprint>
     ) {}
 
-    async getObjective(id: Objective['id']) {
-        const objective = await this.objectiveRepository.find({
+    async getgoal(id: Goal['id']) {
+        const goal = await this.goalRepository.find({
             where: { id }
         })
 
-        if (!objective) {
-            throw new NotFoundException(`Cannot find objective with id ${id}`)
+        if (!goal) {
+            throw new NotFoundException(`Cannot find goal with id ${id}`)
         }
 
-        return objective
+        return goal
     }
 
-    async getObjectivesBySprint(sprintId: Sprint['id']) {
-        const objectives = await this.objectiveRepository.find({
-            where: { sprint: { id: sprintId } },
+    async getGoalsBySprint(sprintId: Sprint['id']) {
+        const goals = await this.goalRepository.find({
+            where: { sprints: { id: sprintId } },
             relations: ['sprint']
         })
 
-        return objectives
+        return goals
     }
 
-    async creatObjective(sprintId: Sprint['id'], createObjectiveDto: CreateObjectiveDto) {
+    async createGoal(sprintId: Sprint['id'], createGoalDto: CreateGoalDto) {
         const sprint = await this.sprintRepository.findOne({
             where: { id: sprintId },
-            relations: ['objectives']
+            relations: ['goals']
         })
 
-        const objective = await this.objectiveRepository.create({
-            ...createObjectiveDto,
+        const goal = await this.goalRepository.create({
+            ...createGoalDto,
             sprint
         })
 
-        return await this.objectiveRepository.save(objective)
+        return await this.goalRepository.save(goal)
     }
 
-    async removeObjective(id: Objective['id']) {
-        const objective = await this.objectiveRepository.findOne({
+    async removegoal(id: Goal['id']) {
+        const goal = await this.goalRepository.findOne({
             where: { id }
         })
 
-        if (!objective) {
-            throw new NotFoundException(`Cannot find objective with id ${id}`)
+        if (!goal) {
+            throw new NotFoundException(`Cannot find goal with id ${id}`)
         }
 
-        return await this.objectiveRepository.remove(objective)
+        return await this.goalRepository.remove(goal)
     }
 }

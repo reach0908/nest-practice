@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, OneToMany } from 't
 import { Sprint } from 'src/sprint/entities/sprint.entity'
 import { GoalLog } from 'src/goalLog/entities/goalLog.entity'
 
-@Entity('objective')
+@Entity('goal')
 export class Goal {
     @PrimaryGeneratedColumn()
     id: number
