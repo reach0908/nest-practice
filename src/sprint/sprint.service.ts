@@ -6,23 +6,22 @@ import { Repository } from 'typeorm'
 import { Sprint } from 'src/sprint/entities/sprint.entity'
 import { CreateSprintDto } from 'src/sprint/dto/create-sprint.dto'
 import { UpdateSprintDto } from './dto/update-sprint.dto'
+import { Goal } from 'src/goal/entities/goal.entity'
+import { Answer } from 'src/answer/entity/answer.entity'
+import { windowWhen } from 'rxjs'
 
 @Injectable()
 export class SprintService {
     constructor(
         @InjectRepository(Sprint)
-        private readonly sprintRepository: Repository<Sprint>
+        private readonly sprintRepository: Repository<Sprint>,
+        @InjectRepository(Goal)
+        private readonly goalRepository: Repository<Goal>,
+        @InjectRepository(Answer)
+        private readonly answerRepository: Repository<Answer>
     ) {}
 
-    async findAll() {
-        const sprints = await this.sprintRepository.find({
-            relations: ['objectives']
-        })
-
-        return sprints
-    }
-
-    async findOne(id: Sprint['id']) {
+    async get(id: Sprint['id']) {
         const sprint = await this.sprintRepository.findOneBy({ id })
 
         if (!sprint) {
@@ -30,6 +29,43 @@ export class SprintService {
         }
 
         return sprint
+    }
+
+    async getGoalsBySprint(id: Sprint['id']) {
+        const sprint = await this.sprintRepository.findOneBy({ id })
+
+        if (!sprint) {
+            throw new NotFoundException(`There is no sprint under id ${id}`)
+        }
+
+        const goals = await this.goalRepository.find({
+            relations: ['sprints'], // sprints 관계를 로드합니다.
+            where: {
+                sprints: {
+                    id: sprint.id // 특정 sprint의 ID를 지정합니다.
+                }
+            }
+        })
+
+        return goals
+    }
+
+    async getAnswersBySprint(id: Sprint['id']) {
+        const sprint = await this.sprintRepository.findOneBy({ id })
+
+        if (!sprint) {
+            throw new NotFoundException(`There is no sprint under id ${id}`)
+        }
+
+        const answers = await this.answerRepository.find({
+            where: {
+                sprint: {
+                    id: sprint.id
+                }
+            }
+        })
+
+        return answers
     }
 
     async create(createSprintDto: CreateSprintDto) {

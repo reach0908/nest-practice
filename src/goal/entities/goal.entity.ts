@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, OneToMany } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, OneToMany, JoinTable } from 'typeorm'
 
 import { Sprint } from 'src/sprint/entities/sprint.entity'
 import { GoalLog } from 'src/goalLog/entities/goalLog.entity'
@@ -21,6 +21,7 @@ export class Goal {
     isComplete: false
 
     @ManyToMany(() => Sprint, sprint => sprint.goals)
+    @JoinTable()
     sprints: Array<Sprint>
 
     @OneToMany(() => GoalLog, goalLog => goalLog.goal, { cascade: true })

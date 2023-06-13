@@ -15,14 +15,20 @@ export class SprintController {
 
     @UseGuards(JwtAuthGuard)
     @Get(':id')
-    async findOne(@Param('id') id: Sprint['id']) {
+    async get(@Param('id') id: Sprint['id']) {
+        return this.sprintService.get(id)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get(':id/goals')
+    async getGoalsBySprint(@Param('id') id: Sprint['id']) {
         return this.sprintService.findOne(id)
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get()
-    async findAll() {
-        return this.sprintService.findAll()
+    @Get(':id/answers')
+    async getAnswerBySprint(@Param('id') id: Sprint['id']) {
+        return this.sprintService.findOne(id)
     }
 
     @UseGuards(JwtAuthGuard)
