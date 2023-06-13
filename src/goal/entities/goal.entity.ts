@@ -23,6 +23,6 @@ export class Goal {
     @ManyToMany(() => Sprint, sprint => sprint.goals)
     sprints: Array<Sprint>
 
-    @OneToMany(() => GoalLog, goalLog => goalLog.goal)
+    @OneToMany(() => GoalLog, goalLog => goalLog.goal, { cascade: true })
     goalLogs: Array<GoalLog>
 }

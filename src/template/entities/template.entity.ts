@@ -3,6 +3,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn, ManyToOne } from 'ty
 import { Question } from 'src/question/entities/question.entity'
 import { Answer } from 'src/answer/entity/answer.entity'
 import { User } from 'src/user/entities/user.entity'
+import { Sprint } from 'src/sprint/entities/sprint.entity'
 
 @Entity('template')
 export class Template {
@@ -21,8 +22,8 @@ export class Template {
     @OneToMany(() => Question, question => question.template, { cascade: true })
     questions: Array<Question>
 
-    @OneToMany(() => Answer, answer => answer.template)
-    answers: Array<Answer>
+    @OneToMany(() => Sprint, sprint => sprint.template)
+    sprints: Array<Sprint>
 
     @ManyToOne(() => User, user => user.templates)
     user: User

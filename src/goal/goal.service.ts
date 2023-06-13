@@ -3,6 +3,7 @@ import { Goal } from './entities/goal.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Sprint } from 'src/sprint/entities/sprint.entity'
+import { GoalLog } from 'src/goalLog/entities/goalLog.entity'
 
 @Injectable()
 export class GoalService {
@@ -10,37 +11,34 @@ export class GoalService {
         @InjectRepository(Goal)
         private readonly goalRepository: Repository<Goal>,
         @InjectRepository(Sprint)
-        private readonly sprintRepository: Repository<Sprint>
+        private readonly sprintRepository: Repository<Sprint>,
+        @InjectRepository(GoalLog)
+        private readonly goalLogRepository: Repository<GoalLog>
     ) {}
 
-    async getgoal(id: Goal['id']) {
+    async get(id: Goal['id']) {
         const goal = await this.goalRepository.find({
             where: { id }
+        })
+
+        const goalLogs = await this.goalLogRepository.find({
+            where: { goal }
         })
 
         if (!goal) {
             throw new NotFoundException(`Cannot find goal with id ${id}`)
         }
 
-        return goal
+        return { ...goal, logs: goalLogs }
     }
 
-    async getGoalsBySprint(sprintId: Sprint['id']) {
-        const goals = await this.goalRepository.find({
-            where: { sprints: { id: sprintId } },
-            relations: ['sprint']
-        })
-
-        return goals
-    }
-
-    async createGoal(sprintId: Sprint['id'], createGoalDto: CreateGoalDto) {
+    async create(createGoalDto: CreateGoalDto) {
         const sprint = await this.sprintRepository.findOne({
-            where: { id: sprintId },
+            where: { id: createGoalDto.sprintId },
             relations: ['goals']
         })
 
-        const goal = await this.goalRepository.create({
+        const goal = this.goalRepository.create({
             ...createGoalDto,
             sprint
         })
@@ -48,7 +46,17 @@ export class GoalService {
         return await this.goalRepository.save(goal)
     }
 
-    async removegoal(id: Goal['id']) {
+    async update(goalId: Goal['id'], updateGoalDto: UpdateGoalDto) {
+        const goal = await this.goalRepository.preload({ id, ...updateGoalDto })
+
+        if (!goal) {
+            throw new NotFoundException(`Cannot find goal with id ${goalId}`)
+        }
+
+        return this.goalRepository.save(goal)
+    }
+
+    async remove(id: Goal['id']) {
         const goal = await this.goalRepository.findOne({
             where: { id }
         })
