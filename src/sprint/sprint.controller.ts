@@ -22,13 +22,13 @@ export class SprintController {
     @UseGuards(JwtAuthGuard)
     @Get(':id/goals')
     async getGoalsBySprint(@Param('id') id: Sprint['id']) {
-        return this.sprintService.findOne(id)
+        return this.sprintService.getGoalsBySprint(id)
     }
 
     @UseGuards(JwtAuthGuard)
     @Get(':id/answers')
     async getAnswerBySprint(@Param('id') id: Sprint['id']) {
-        return this.sprintService.findOne(id)
+        return this.sprintService.getAnswersBySprint(id)
     }
 
     @UseGuards(JwtAuthGuard)

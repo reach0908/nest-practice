@@ -8,7 +8,6 @@ import { CreateSprintDto } from 'src/sprint/dto/create-sprint.dto'
 import { UpdateSprintDto } from './dto/update-sprint.dto'
 import { Goal } from 'src/goal/entities/goal.entity'
 import { Answer } from 'src/answer/entity/answer.entity'
-import { windowWhen } from 'rxjs'
 
 @Injectable()
 export class SprintService {
@@ -90,7 +89,7 @@ export class SprintService {
     }
 
     async remove(id: Sprint['id']) {
-        const sprint = await this.findOne(id)
+        const sprint = await this.sprintRepository.findOneBy({ id })
         return this.sprintRepository.remove(sprint)
     }
 }

@@ -3,7 +3,9 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 import { RequestWithUser } from 'src/user/interfaces/reqeust-with-user.interface'
 import { Template } from './entities/template.entity'
 import { OwnershipGuard } from 'src/sprint/guards/ownership.guard'
-import { UpdateSprintDto } from 'src/sprint/dto/update-sprint.dto'
+import { TemplateService } from './template.service'
+import { CreateTemplateDto } from './dto/create-template.dto'
+import { UpdateTemplateDto } from './dto/update-template.dto'
 
 @Controller('template')
 export class TemplateController {
@@ -33,8 +35,8 @@ export class TemplateController {
 
     @UseGuards(JwtAuthGuard, OwnershipGuard)
     @Patch(':id')
-    async update(@Param('id') id: Template['id'], @Body() updateSprintDto: UpdateSprintDto) {
-        return this.templateService.update(id, updateSprintDto)
+    async update(@Param('id') id: Template['id'], @Body() updateTemplateDto: UpdateTemplateDto) {
+        return this.templateService.update(id, updateTemplateDto)
     }
 
     @UseGuards(JwtAuthGuard, OwnershipGuard)

@@ -1,7 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
 
 import { Question } from 'src/question/entities/question.entity'
-import { Answer } from 'src/answer/entity/answer.entity'
 import { User } from 'src/user/entities/user.entity'
 import { Sprint } from 'src/sprint/entities/sprint.entity'
 
