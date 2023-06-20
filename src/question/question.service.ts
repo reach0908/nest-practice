@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Question } from './entities/question.entity'
 import { Repository } from 'typeorm'
 
+import { CreateQuestionDto } from './dto/create-question.dto'
+import { UpdateQuestionDto } from './dto/update-question.dto'
 @Injectable()
 export class QuestionService {
     constructor(

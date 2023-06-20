@@ -2,6 +2,7 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'ty
 
 import { Template } from 'src/template/entities/template.entity'
 import { Answer } from 'src/answer/entity/answer.entity'
+import { User } from 'src/user/entities/user.entity'
 
 @Entity('question')
 export class Question {
@@ -14,6 +15,9 @@ export class Question {
     @ManyToOne(() => Template, template => template.questions)
     template: Template
 
-    @OneToMany(() => Answer, answer => answer.questions)
+    @OneToMany(() => Answer, answer => answer.question)
     answers: Array<Answer>
+
+    @ManyToOne(() => User, user => user.questions)
+    user: User
 }

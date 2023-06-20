@@ -16,7 +16,7 @@ export class OwnershipGuard implements CanActivate {
                 const req = context.switchToHttp().getRequest<RequestWithUser>()
                 const sprintId = req.params.id
 
-                const sprint = await this.sprintService.findOne(sprintId)
+                const sprint = await this.sprintService.get(sprintId)
 
                 if (sprint.user.id === req.user.id) {
                     resolve(true)

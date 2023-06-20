@@ -18,8 +18,8 @@ import { Template } from 'src/template/entities/template.entity'
 // 아래 데코레이터를 통해 적용해서 생성할 수 있음
 @Entity('sprint')
 export class Sprint {
-    @PrimaryGeneratedColumn()
-    id: number
+    @PrimaryGeneratedColumn('uuid')
+    id: string
 
     @Column()
     term: number

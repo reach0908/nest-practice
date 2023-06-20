@@ -1,8 +1,9 @@
+import { Question } from 'src/question/entities/question.entity'
 import { Sprint } from 'src/sprint/entities/sprint.entity'
 import { Template } from 'src/template/entities/template.entity'
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
 
-@Entity()
+@Entity('user')
 export class User {
     @PrimaryGeneratedColumn('uuid')
     id: string
@@ -24,4 +25,7 @@ export class User {
 
     @OneToMany(() => Sprint, template => template.user)
     templates: Array<Template>
+
+    @OneToMany(() => Question, question => question.user)
+    questions: Array<Question>
 }

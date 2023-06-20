@@ -1,11 +1,14 @@
-import { Body, Controller, Delete, Param, Patch, Post, UseGuards } from '@nestjs/common'
+import { Get, Req, Body, Controller, Delete, Param, Patch, Post, UseGuards } from '@nestjs/common'
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
+import { OwnershipGuard } from './guards/ownership.guard'
 import { Question } from './entities/question.entity'
 import { RequestWithUser } from 'src/user/interfaces/reqeust-with-user.interface'
-
+import { QuestionService } from './question.service'
+import { CreateQuestionDto } from './dto/create-question.dto'
+import { UpdateQuestionDto } from './dto/update-question.dto'
 @Controller('question')
 export class QuestionController {
-    constructor(private readonly questionService: QeustionService) {}
+    constructor(private readonly questionService: QuestionService) {}
 
     @UseGuards(JwtAuthGuard)
     @Get(':id')

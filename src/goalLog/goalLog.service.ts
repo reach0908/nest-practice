@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Goal } from 'src/goal/entities/goal.entity'
 import { Repository } from 'typeorm'
 import { GoalLog } from './entities/goalLog.entity'
+import { CreateGoalLogDto } from './dto/create-goal-log.dto'
 
 @Injectable()
 export class GoalLogService {
@@ -14,13 +15,13 @@ export class GoalLogService {
     ) {}
 
     async create(createGoalLogDto: CreateGoalLogDto) {
-        const goal = await this.goalRepository.find({ id: createGoalLogDto.goalId })
+        const goal = await this.goalRepository.findOneBy({ id: createGoalLogDto.goalId })
 
         if (!goal) {
-            throw new NotFoundException(`Cannot find goal with id ${id}`)
+            throw new NotFoundException(`Cannot find goal with id ${createGoalLogDto.goalId}`)
         }
 
-        const goalLog = await this.goalLogRepository.create({
+        const goalLog = this.goalLogRepository.create({
             ...createGoalLogDto,
             goal
         })
